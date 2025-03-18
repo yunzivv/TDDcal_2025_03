@@ -6,21 +6,30 @@ public class Calc {
 
         exp = exp.replace("- ", "+ -");
         String[] bits = null;
+        int number;
+        int res = 0;
+
+        if (exp.contains("*")) {
+            res = 1;
+            bits = exp.split(" \\* ");
+            for (int i = 0; i < bits.length; i++) {
+                number = Integer.parseInt(bits[i]);
+                res *=number;
+            }
+            return res;
+        }
 
         boolean needToPlus = exp.contains("+");
 
         bits = exp.split(" \\+ ");
 
 
-        int a = Integer.parseInt(bits[0]);
-        int b = Integer.parseInt(bits[1]);
-        int c = 0;
-
-        if (bits.length > 2) {
-            c = Integer.parseInt(bits[2]);
+        for (int i = 0; i < bits.length; i++) {
+            number = Integer.parseInt(bits[i]);
+            res +=number;
         }
 
-        return a + b + c;
+        return res;
     }
 
 }
