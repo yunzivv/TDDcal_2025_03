@@ -2,6 +2,7 @@ package org.example;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.w3c.dom.ls.LSOutput;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -61,10 +62,16 @@ public class CalcTest {
         assertThat(Calc.run("10 + 5 * 2")).isEqualTo(20);
     }
 
+    @Test
+    @DisplayName("10 * 20 + 10 + 5 * 2 = 220")
+    public void test10(){
+        assertThat(Calc.run("10 * 20 + 10 + 5 * 2")).isEqualTo(220);
+    }
+
 //    @Test
-//    @DisplayName("10 * 20 + 10 + 5 = 220")
-//    public void test10(){
-//        assertThat(Calc.run("10 * 20 + 10 + 5")).isEqualTo(220);
+//    @DisplayName("((20 + 20)) + 20 = 60")
+//    public void test11(){
+//        assertThat(Calc.run("((20 + 20)) + 20")).isEqualTo(60);
 //    }
 
 }

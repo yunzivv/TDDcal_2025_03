@@ -2,25 +2,36 @@ package org.example;
 
 public class Calc {
 
-    public static int run(String exp) {
-        
+    public static int run(String exp) { // ((20 + 20)) + 20
+
+        String s = "((20 + 20)) + 20";
         exp = exp.replace("- ", "+ -");
+        int sum = 0;
 
         boolean needToMulti = exp.contains("*");
         boolean needToPlus = exp.contains("+");
         boolean needToCompound = needToPlus && needToMulti;
+        boolean needToFirst = exp.contains("(");
+
+        if (needToFirst) {
+
+        }
 
         if (needToCompound) {
+            int num = 0;
             String[] bits = exp.split(" \\+ ");
-
-            return Integer.parseInt(bits[0]) + run(bits[1]);
+            for (int i = 0; i < bits.length; i++) {
+                if (bits[i].contains("*")) {
+                    bits[i] = String.valueOf(run(bits[i]));
+                }
+                sum += Integer.parseInt(bits[i]);
+            }
+            return sum;
         }
 
         if (needToPlus) {
 
             String[] bits = exp.split(" \\+ ");
-
-            int sum = 0;
 
             for (int i = 0; i < bits.length; i++) {
                 sum += Integer.parseInt(bits[i]);
@@ -30,7 +41,7 @@ public class Calc {
         } else if (needToMulti) {
             String[] bits = exp.split(" \\* ");
 
-            int sum = 1;
+            sum = 1;
 
             for (int i = 0; i < bits.length; i++) {
                 sum *= Integer.parseInt(bits[i]);
