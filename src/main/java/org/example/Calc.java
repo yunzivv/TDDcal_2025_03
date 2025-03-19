@@ -2,7 +2,7 @@ package org.example;
 
 public class Calc {
 
-    public static int run(String exp) { // ((20 + 20)) + 20
+    public static int run(String exp) { // 3 * 1 + (1 - (4 * 1 - (1 - 1)))
 
         // 공백이 없는 문자열(단일항)이라면 정수로 변환해서 반환
         if (!exp.contains(" ")) {
@@ -15,12 +15,12 @@ public class Calc {
         boolean needToCompound = needToPlus && needToMulti;
         boolean needToFirst = exp.contains("(");
 
-
         if (needToFirst) {
             exp = delpar(exp);
         }
 
         if (needToCompound) {
+            exp = exp.replace("- ", "+ -");
             String[] bits = exp.split(" \\+ ");
 
             for (int i = 0; i < bits.length; i++) {
@@ -53,7 +53,7 @@ public class Calc {
             return sum;
         }
 
-        throw new RuntimeException("해석 불가 : 올바른 계산식이 아닙니다");
+        throw new RuntimeException("해석 불가");
     }
 
     public static String delpar(String exp) {
