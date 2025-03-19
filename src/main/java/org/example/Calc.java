@@ -14,7 +14,7 @@ public class Calc {
         boolean needToPlus = exp.contains("+") || exp.contains(" - "); // 음수를 나타내는 게 아닌 빼기 기호일 때만
         boolean needToCompound = needToPlus && needToMulti;
         boolean needToFirst = exp.contains("(");
-        
+
 
         if (needToFirst) {
             exp = delpar(exp);
@@ -57,9 +57,34 @@ public class Calc {
     }
 
     public static String delpar(String exp) {
-        exp = exp.replace("(", "");
-        exp = exp.replace(")", "");
+        int open = exp.indexOf("(");
+        int close = exp.lastIndexOf(")");
+        String first = exp.substring(open + 1, close);
+        first = String.valueOf(run(first));
+        String after = exp.substring(close + 1);
+        exp = first + after;
         return exp;
     }
+
+// 내 함수
+//    public static String delpar(String exp) {
+//        exp = exp.replace("(", "");
+//        exp = exp.replace(")", "");
+//        return exp;
+//    }
+
+// 강사님 함수
+//    private static String stripOuterBrackets(String exp) {
+//
+//        int outerBracketsCount = 0;
+//
+//        while (exp.charAt(outerBracketsCount) == '(' && exp.charAt(exp.length() - 1 - outerBracketsCount) == ')') {
+//            outerBracketsCount++;
+//        }
+//
+//        if (outerBracketsCount == 0) return exp;
+//
+//        return exp.substring(outerBracketsCount, exp.length() - outerBracketsCount);
+//    }
 
 }
