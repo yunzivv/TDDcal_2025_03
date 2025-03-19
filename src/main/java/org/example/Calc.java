@@ -8,12 +8,10 @@ public class Calc {
         if (!exp.contains(" ")) {
             return Integer.parseInt(exp);
         }
-
-        exp = exp.replace("- ", "+ -");
         int sum = 0;
 
         boolean needToMulti = exp.contains("*");
-        boolean needToPlus = exp.contains("+");
+        boolean needToPlus = exp.contains("+") || exp.contains(" - "); // 음수를 나타내는 게 아닌 빼기 기호일 때만
         boolean needToCompound = needToPlus && needToMulti;
         boolean needToFirst = exp.contains("(");
 
@@ -44,6 +42,7 @@ public class Calc {
 
         if (needToPlus) {
 
+            exp = exp.replace("- ", "+ -");
             String[] bits = exp.split(" \\+ ");
 
             for (int i = 0; i < bits.length; i++) {
