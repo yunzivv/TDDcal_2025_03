@@ -14,18 +14,10 @@ public class Calc {
         boolean needToPlus = exp.contains("+") || exp.contains(" - "); // 음수를 나타내는 게 아닌 빼기 기호일 때만
         boolean needToCompound = needToPlus && needToMulti;
         boolean needToFirst = exp.contains("(");
+        
 
         if (needToFirst) {
-            String[] bits = exp.split("\\) \\+ ");
-            for (int i = 0; i < bits.length; i++) {
-                if (bits[i].contains("(")) {
-                    bits[i] = bits[i].replace("(", "");
-                    bits[i] = bits[i].replace(")", "");
-                    bits[i] = String.valueOf(run(bits[i]));
-                }
-                sum += Integer.parseInt(bits[i]);
-            }
-            return sum;
+            exp = delpar(exp);
         }
 
         if (needToCompound) {
@@ -62,6 +54,12 @@ public class Calc {
         }
 
         throw new RuntimeException("해석 불가 : 올바른 계산식이 아닙니다");
+    }
+
+    public static String delpar(String exp) {
+        exp = exp.replace("(", "");
+        exp = exp.replace(")", "");
+        return exp;
     }
 
 }
