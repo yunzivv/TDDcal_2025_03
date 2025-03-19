@@ -59,32 +59,16 @@ public class Calc {
     public static String delpar(String exp) {
         int open = exp.indexOf("(");
         int close = exp.lastIndexOf(")");
-        String first = exp.substring(open + 1, close);
-        first = String.valueOf(run(first));
-        String after = exp.substring(close + 1);
-        exp = first + after;
+        if (open == 0) {
+            String first = String.valueOf(run(exp.substring(open + 1, close)));
+            String after = exp.substring(close + 1);
+            exp = first + after;
+        } else {
+            String first = exp.substring(0, open);
+            String after = String.valueOf(run(exp.substring(open + 1, close)));
+            exp = first + after;
+        }
         return exp;
     }
-
-// 내 함수
-//    public static String delpar(String exp) {
-//        exp = exp.replace("(", "");
-//        exp = exp.replace(")", "");
-//        return exp;
-//    }
-
-// 강사님 함수
-//    private static String stripOuterBrackets(String exp) {
-//
-//        int outerBracketsCount = 0;
-//
-//        while (exp.charAt(outerBracketsCount) == '(' && exp.charAt(exp.length() - 1 - outerBracketsCount) == ')') {
-//            outerBracketsCount++;
-//        }
-//
-//        if (outerBracketsCount == 0) return exp;
-//
-//        return exp.substring(outerBracketsCount, exp.length() - outerBracketsCount);
-//    }
 
 }
