@@ -1,75 +1,64 @@
 package org.example;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 public class Calc {
 
     public static int run(String exp) { // ((20 + 20)) + 20
 
-        exp = exp.replace("- ", "+ -");
-        // 단일항이 들어오면 바로 리턴
+        // 공백이 없는 문자열(단일항)이라면 정수로 변환해서 반환
         if (!exp.contains(" ")) {
             return Integer.parseInt(exp);
         }
 
+        exp = exp.replace("- ", "+ -");
+        int sum = 0;
+
         boolean needToMulti = exp.contains("*");
         boolean needToPlus = exp.contains("+");
-
         boolean needToCompound = needToPlus && needToMulti;
+        boolean needToFirst = exp.contains("(");
+
+        if (needToFirst) {
+            String[] bits = exp.split("\\) \\+ ");
+            for (int i = 0; i < bits.length; i++) {
+                if (bits[i].contains("(")) {
+                    bits[i] = bits[i].replace("(", "");
+                    bits[i] = bits[i].replace(")", "");
+                    bits[i] = String.valueOf(run(bits[i]));
+                }
+                sum += Integer.parseInt(bits[i]);
+            }
+            return sum;
+        }
 
         if (needToCompound) {
             String[] bits = exp.split(" \\+ ");
 
-            String newExp = Arrays.stream(bits)
-                    .mapToInt(Calc::run)
-                    .mapToObj(e -> e + "")
-                    .collect(Collectors.joining(" + "));
-
-//            String newExp = "";
-//            for (int i = 0; i < bits.length; i++) {
-//                int result = Calc.run(bits[i]);
-//                newExp += result;
-//                if (i < bits.length - 1) {
-//                    newExp += " + ";
-//                }
-//            }
-
-
-//            StringBuilder newExpBuilder = new StringBuilder();
-//            for (int i = 0; i < bits.length; i++) {
-//                newExpBuilder.append(Calc.run(bits[i]));
-//                if (i < bits.length - 1) {
-//                    newExpBuilder.append(" + ");
-//                }
-//            }
-//            String newExp = newExpBuilder.toString();
-
-
-            return run(newExp);
+            for (int i = 0; i < bits.length; i++) {
+                if (bits[i].contains("*")) {
+                    bits[i] = String.valueOf(run(bits[i]));
+                }
+                sum += Integer.parseInt(bits[i]);
+            }
+            return sum;
         }
 
         if (needToPlus) {
-            exp = exp.replace("- ", "+ -");
 
             String[] bits = exp.split(" \\+ ");
-
-            int sum = 0;
 
             for (int i = 0; i < bits.length; i++) {
                 sum += Integer.parseInt(bits[i]);
             }
-
             return sum;
-        } else if (needToMulti) {
-            String[] bits = exp.split(" \\* ");
 
-            int sum = 1;
+        } else if (needToMulti) {
+
+            String[] bits = exp.split(" \\* ");
+            sum = 1;
 
             for (int i = 0; i < bits.length; i++) {
                 sum *= Integer.parseInt(bits[i]);
             }
-
             return sum;
         }
 
