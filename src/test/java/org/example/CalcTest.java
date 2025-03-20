@@ -110,21 +110,18 @@ public class CalcTest {
     }
 
     @Test
-    @DisplayName("3 * 1 + (1 - (4 * 1 - (1 - 1))) = 0")
+    @DisplayName("-(8 + 2) * -(7 + 3) + 5 = 105")
     public void test18() {
-        assertThat(Calc.run("3 * 1 + (1 - (4 * 1 - (1 - 1)))")).isEqualTo(0);
-    }
+        assertThat(Calc.run("-(8 + 2) * -(7 + 3) + 5")).isEqualTo(105);}
 
     @Test
-    @DisplayName("3 * 1 + (1 - (4 * 1 - (1 - 1))) = 0")
+    @DisplayName("10 * -10 == -100")
     public void test19() {
-        assertThat(Calc.run("3 * 1 + (1 - (4 * 1 - (1 - 1)))")).isEqualTo(0);
-    }
+        assertThat(Calc.run("10 * -10")).isEqualTo(-100);}
 
     @Test
     @DisplayName("3 * 1 + (1 - (4 * 1 - (1 - 1))) = 0")
     public void test20() {
-        assertThat(Calc.run("3 * 1 + (1 - (4 * 1 - (1 - 1)))")).isEqualTo(0);
-    }
+        assertThat(Calc.run("3 * 1 + (1 - (4 * 1 - (1 - 1)))")).isEqualTo(0);}
 
 }
