@@ -114,6 +114,17 @@ public class CalcTest {
     public void test18() {
         assertThat(Calc.run("3 * 1 + (1 - (4 * 1 - (1 - 1)))")).isEqualTo(0);
     }
+
+    @Test
+    @DisplayName("3 * 1 + (1 - (4 * 1 - (1 - 1))) = 0")
+    public void test19() {
+        assertThat(Calc.run("3 * 1 + (1 - (4 * 1 - (1 - 1)))")).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("3 * 1 + (1 - (4 * 1 - (1 - 1))) = 0")
+    public void test20() {
+        assertThat(Calc.run("3 * 1 + (1 - (4 * 1 - (1 - 1)))")).isEqualTo(0);
+    }
+
 }
-
-
